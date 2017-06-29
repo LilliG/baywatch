@@ -24,8 +24,10 @@ const app = {
 
     const flickItem = document.createElement('li')
     flickItem.textContent = flick.name
+    flickItem.dataset.id = flick.id
     flickItem.className += "input-group-label"
     item.appendChild(flickItem)
+    
 
     const buttonWrap = document.createElement('div')
     buttonWrap.className += "input-group-button"
@@ -48,9 +50,9 @@ const app = {
     }
 
     const listItem = this.renderListItem(flick)
-    this.list.appendChild(listItem)
+    this.list.insertBefore(listItem, this.list.firstElementChild)
 
-    this.flicks.push(flick.name)
+    this.flicks.unshift(flick)
 
     this.max ++
     f.reset()
