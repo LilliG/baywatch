@@ -9,42 +9,32 @@ const app = {
       .addEventListener('submit', this.handleSubmit.bind(this))
   },
 
-  renderButtons(item) {
-    const buttons = document.createElement('div')
-    buttons.className += "small button-group"
-    item.appendChild(buttons)
-
-    const upButton = document.createElement('button')
-    upButton.className += "button"
-    upButton.textContent = 'UP'
-    buttons.appendChild(upButton)
-
-    const downButton = document.createElement('button')
-    downButton.className += "button"
-    downButton.textContent = 'DOWN'
-    buttons.appendChild(downButton)
-
-    const favButton = document.createElement('button')
-    favButton.className += "warning button"
-    favButton.textContent = 'FAVORITE'
-    buttons.appendChild(favButton)
-
-    const delButton = document.createElement('button')
-    delButton.className += "alert button"
-    delButton.textContent = 'DELETE'
-    buttons.appendChild(delButton)
-
-    return buttons
+  renderButton(buttonWrap, buttonType, buttonText) {
+    const button = document.createElement('input')
+    button.type = 'button'
+    button.className += "button "
+    button.className += buttonType
+    button.value = buttonText
+    buttonWrap.appendChild(button)
   },
 
   renderListItem(flick) {
     const item = document.createElement('div')
+    item.className += "input-group"
 
     const flickItem = document.createElement('li')
     flickItem.textContent = flick.name
+    flickItem.className += "input-group-label"
     item.appendChild(flickItem)
 
-    this.renderButtons(item)
+    const buttonWrap = document.createElement('div')
+    buttonWrap.className += "input-group-button"
+    item.appendChild(buttonWrap)
+
+    this.renderButton(buttonWrap, "", "UP")
+    this.renderButton(buttonWrap, "", "DOWN")
+    this.renderButton(buttonWrap, "warning", "FAVORITE")
+    this.renderButton(buttonWrap, "alert", "DELETE")
 
     return item
   },
