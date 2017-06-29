@@ -53,6 +53,7 @@ const app = {
     this.flicks.push(flick.name)
 
     this.max ++
+    f.reset()
   },
 }
 
