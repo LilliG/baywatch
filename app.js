@@ -9,9 +9,43 @@ const app = {
       .addEventListener('submit', this.handleSubmit.bind(this))
   },
 
+  renderButtons(item) {
+    const buttons = document.createElement('div')
+    buttons.className += "small button-group"
+    item.appendChild(buttons)
+
+    const upButton = document.createElement('button')
+    upButton.className += "button"
+    upButton.textContent = 'UP'
+    buttons.appendChild(upButton)
+
+    const downButton = document.createElement('button')
+    downButton.className += "button"
+    downButton.textContent = 'DOWN'
+    buttons.appendChild(downButton)
+
+    const favButton = document.createElement('button')
+    favButton.className += "warning button"
+    favButton.textContent = 'FAVORITE'
+    buttons.appendChild(favButton)
+
+    const delButton = document.createElement('button')
+    delButton.className += "alert button"
+    delButton.textContent = 'DELETE'
+    buttons.appendChild(delButton)
+
+    return buttons
+  },
+
   renderListItem(flick) {
-    const item = document.createElement('li')
-    item.textContent = flick.name
+    const item = document.createElement('div')
+
+    const flickItem = document.createElement('li')
+    flickItem.textContent = flick.name
+    item.appendChild(flickItem)
+
+    this.renderButtons(item)
+
     return item
   },
 
@@ -25,6 +59,8 @@ const app = {
 
     const listItem = this.renderListItem(flick)
     this.list.appendChild(listItem)
+
+    this.flicks.push(flick.name)
 
     this.max ++
   },
