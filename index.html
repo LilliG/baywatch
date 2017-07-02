@@ -6,7 +6,7 @@
         <title>Michael Baywatch</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.0/css/foundation.min.css">
         <link rel="stylesheet" href="app.css">
     </head>
     <body>
@@ -36,7 +36,17 @@
             </div>
 
             <div class="medium-8 medium-offset-2 cell">
-                <ul id="flick-list"></ul>
+                <ul id="flick-list" class="no-bullet">
+                    <li class="template flick grid-x align-middle">
+                        <span class="flick-name auto cell">Flick</span>
+                        <span class="actions button-group shrink cell">
+                            <button class="fav button warning">FAVORITE</button>
+                            <button class="remove button alert">DELETE</button>
+                            <button class="up button">UP</button>
+                            <button class="down button">DOWN</button>
+                        </span>
+                    </li>
+                </ul>
             </div>
 
         </div>
