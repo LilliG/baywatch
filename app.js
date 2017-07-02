@@ -10,6 +10,15 @@ const app = {
       .addEventListener('submit', this.handleSubmit.bind(this))
   },
 
+  removeFlick(flick,ev) {
+    console.log(ev)
+    const listItem = ev.target.closest('.flick')
+    listItem.remove()
+
+    const i = this.flicks.indexOf(flick)
+    this.flicks.splice(i, 1)
+  },
+
   renderListItem(flick) {
     const item = this.template.cloneNode(true)
     item.classList.remove('template')
@@ -17,6 +26,21 @@ const app = {
     item
       .querySelector('.flick-name')
       .textContent = flick.name
+
+    item
+      .querySelector('button.remove')
+      .addEventListener(
+        'click',
+        this.removeFlick.bind(this,flick)
+      )
+
+    // item
+    //   .querySelector('button.fav')
+    //   .addEventListener(
+    //     'click',
+    //     this.favFlick.bind(this, flick)
+    //   )
+
     return item
   },
 
