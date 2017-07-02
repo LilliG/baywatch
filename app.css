@@ -10,6 +10,10 @@
     margin: 0 .75rem;
 }
 
+.flick.fav {
+    background-color: yellow;
+}
+
 .flick .button-group {
     margin-bottom: 0;
 }
