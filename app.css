@@ -1,3 +1,7 @@
+body{
+    background-image: linear-gradient(orange, blue);
+}
+
 .list-container {
   background-color: whitesmoke;
 }
@@ -16,6 +20,7 @@
 
 .flick .button-group {
     margin-bottom: 0;
+    background-color: whitesmoke;
 }
 
 .flick .button-group .button {
