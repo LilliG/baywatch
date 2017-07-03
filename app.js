@@ -24,19 +24,25 @@ const app = {
   },
 
   moveFlickUp(flick, ev) {
-    const listItem = ev.target.closest('.flick')
-    this.list.insertBefore(listItem, listItem.previousElementSibling)
-
     const i = this.flicks.indexOf(flick)
-    this.flicks[i] = [this.flicks[i-1], this.flicks[i-1] = this.flicks[i]][0]
+
+    if (i>0) {
+      const listItem = ev.target.closest('.flick')
+      this.list.insertBefore(listItem, listItem.previousElementSibling)
+
+      this.flicks[i] = [this.flicks[i-1], this.flicks[i-1] = this.flicks[i]][0]
+    }
   },
 
   moveFlickDown(flick, ev) {
-    const listItem = ev.target.closest('.flick')
-    this.list.insertBefore(listItem.nextElementSibling, listItem)
-
     const i = this.flicks.indexOf(flick)
-    this.flicks[i] = [this.flicks[i+1], this.flicks[i+1] = this.flicks[i]][0]
+
+    if (i<this.flicks.length-1) {
+      const listItem = ev.target.closest('.flick')
+      this.list.insertBefore(listItem.nextElementSibling, listItem)
+
+      this.flicks[i] = [this.flicks[i+1], this.flicks[i+1] = this.flicks[i]][0]
+    }
   },
 
   renderListItem(flick) {
