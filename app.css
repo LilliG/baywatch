@@ -1,5 +1,34 @@
-body{
-    background-image: linear-gradient(orange, blue);
+@import url('https://fonts.googleapis.com/css?family=Bungee|Bungee+Shade');
+
+html {
+    background: linear-gradient(#62e6ff, #d88700) no-repeat center center fixed;
+    background-size: cover;
+}
+
+body {
+    background: transparent;
+    padding-top: 1rem;
+}
+
+h1 {
+    padding-left: 1rem;
+    font-family: 'Bungee Shade', cursive;
+    color: #d88700;
+    /*text-shadow: 0 0 10px #d88700,
+                 0 0 20px #d88700,
+                 0 0 30px #b13200,
+                 0 0 40px #b13200,
+                 0 0 70px #b13200,
+                 0 0 80px #420000,
+                 0 0 100px #420000,
+                 0 0 150px #420000;*/
+}
+
+h1 small {
+    font-family: 'Bungee', cursive;
+    color: #7c7c7c;
+    font-size: 60%;
+    text-shadow: none;
 }
 
 .list-container {
