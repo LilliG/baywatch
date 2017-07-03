@@ -68,25 +68,19 @@ const app = {
   fadeButtons() {
     upButtonList = document.querySelectorAll('.up')
     upButtonList.forEach(
-      function(currentValue, currentIndex) {
-        if (currentIndex = 1) {
-          currentValue.classList.add('disabled')
-        }else{
-          currentValue.classList.remove('disabled')
+      function(currentValue) {
+        currentValue.classList.remove('disabled')
         }
-      }
     )
+    upButtonList[0].classList.add('disabled')
 
     downButtonList = document.querySelectorAll('.down')
     downButtonList.forEach(
       function(currentValue, currentIndex) {
-        if (currentIndex = downButtonList.length-1) {
-          currentValue.classList.add('disabled')
-        }else{
-          currentValue.classList.remove('disabled')
-        }
+        currentValue.classList.remove('disabled')
       }
     )
+    downButtonList[downButtonList.length-2].classList.add('disabled')
   },
 
   renderListItem(flick) {
