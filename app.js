@@ -15,13 +15,28 @@ const app = {
     flick.fav = listItem.classList.toggle('fav')
   },
 
-  removeFlick(flick,ev) {
-    console.log(ev)
+  removeFlick(flick, ev) {
     const listItem = ev.target.closest('.flick')
     listItem.remove()
 
     const i = this.flicks.indexOf(flick)
     this.flicks.splice(i, 1)
+  },
+
+  moveFlickUp(flick, ev) {
+    const listItem = ev.target.closest('.flick')
+    this.list.insertBefore(listItem, listItem.previousElementSibling)
+
+    const i = this.flicks.indexOf(flick)
+    this.flicks[i] = [this.flicks[i-1], this.flicks[i-1] = this.flicks[i]][0]
+  },
+
+  moveFlickDown(flick, ev) {
+    const listItem = ev.target.closest('.flick')
+    this.list.insertBefore(listItem.nextElementSibling, listItem)
+
+    const i = this.flicks.indexOf(flick)
+    this.flicks[i] = [this.flicks[i+1], this.flicks[i+1] = this.flicks[i]][0]
   },
 
   renderListItem(flick) {
@@ -44,6 +59,20 @@ const app = {
       .addEventListener(
         'click',
         this.favFlick.bind(this, flick)
+      )
+    
+    item
+      .querySelector('button.up')
+      .addEventListener(
+        'click',
+        this.moveFlickUp.bind(this, flick)
+      )
+    
+    item
+      .querySelector('button.down')
+      .addEventListener(
+        'click',
+        this.moveFlickDown.bind(this, flick)
       )
 
     return item
