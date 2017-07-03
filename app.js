@@ -10,6 +10,20 @@ const app = {
       .addEventListener('submit', this.handleSubmit.bind(this))
   },
 
+  editFlick(flick,ev) {
+    ev.target.contentEditable = true
+    ev.target.focus()
+
+    ev.target
+      .addEventListener(
+        'blur',
+        function(){
+          ev.target.contentEditable = false
+          flick.name = ev.target.textContent
+        }
+      )
+  },
+
   favFlick(flick, ev) {
     const listItem = ev.target.closest('.flick')
     flick.fav = listItem.classList.toggle('fav')
@@ -21,6 +35,8 @@ const app = {
 
     const i = this.flicks.indexOf(flick)
     this.flicks.splice(i, 1)
+
+    this.fadeButtons()
   },
 
   moveFlickUp(flick, ev) {
@@ -32,6 +48,8 @@ const app = {
 
       this.flicks[i] = [this.flicks[i-1], this.flicks[i-1] = this.flicks[i]][0]
     }
+
+    this.fadeButtons()
   },
 
   moveFlickDown(flick, ev) {
@@ -43,6 +61,32 @@ const app = {
 
       this.flicks[i] = [this.flicks[i+1], this.flicks[i+1] = this.flicks[i]][0]
     }
+
+    this.fadeButtons()
+  },
+
+  fadeButtons() {
+    upButtonList = document.querySelectorAll('.up')
+    upButtonList.forEach(
+      function(currentValue, currentIndex) {
+        if (currentIndex = 1) {
+          currentValue.classList.add('disabled')
+        }else{
+          currentValue.classList.remove('disabled')
+        }
+      }
+    )
+
+    downButtonList = document.querySelectorAll('.down')
+    downButtonList.forEach(
+      function(currentValue, currentIndex) {
+        if (currentIndex = downButtonList.length-1) {
+          currentValue.classList.add('disabled')
+        }else{
+          currentValue.classList.remove('disabled')
+        }
+      }
+    )
   },
 
   renderListItem(flick) {
@@ -52,6 +96,13 @@ const app = {
     item
       .querySelector('.flick-name')
       .textContent = flick.name
+    
+    item
+      .querySelector('.flick-name')
+      .addEventListener(
+        'dblclick',
+        this.editFlick.bind(this,flick)
+      )
 
     item
       .querySelector('button.remove')
@@ -97,6 +148,8 @@ const app = {
     this.list.insertBefore(listItem, this.list.firstElementChild)
 
     this.flicks.unshift(flick)
+
+    this.fadeButtons()
 
     this.max ++
     f.reset()
