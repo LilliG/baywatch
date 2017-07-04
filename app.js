@@ -10,9 +10,23 @@ const app = {
       .addEventListener('submit', this.handleSubmit.bind(this))
   },
 
-  editFlick(flick,ev) {
+  saveOnEnter(item,ev){
+    if (ev.key === 'Enter') {
+      item.querySelector('.flick-name').blur()
+    }
+  },
+
+  editFlick(flick,item,ev) {
+    console.log(ev.target)
+    console.log(item.querySelector('.flick-name'))
     ev.target.contentEditable = true
     ev.target.focus()
+
+    ev.target
+      .addEventListener(
+        'keypress',
+        this.saveOnEnter.bind(this, item)
+      )
 
     ev.target
       .addEventListener(
@@ -95,7 +109,7 @@ const app = {
       .querySelector('.flick-name')
       .addEventListener(
         'dblclick',
-        this.editFlick.bind(this,flick)
+        this.editFlick.bind(this,flick,item)
       )
 
     item
