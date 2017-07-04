@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Bungee|Bungee+Shade');
 
+.template {
+    display: none;
+}
+
 html {
     background: linear-gradient(#62e6ff, #d88700) no-repeat center center fixed;
     background-size: cover;
@@ -52,10 +56,10 @@ h1 small {
     background-color: whitesmoke;
 }
 
-.flick .button-group .button {
-    /*margin-bottom: 0;*/
+.button.alert, .button.alert:focus, .button.alert:hover {
+    color:#0a0a0a;
 }
 
-.template {
-    display: none;
+.flick .button-group .button {
+    /*margin-bottom: 0;*/
 }
