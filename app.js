@@ -8,9 +8,40 @@ const app = {
     document
       .querySelector(selectors.formSelector)
       .addEventListener('submit', this.handleSubmit.bind(this))
+  
+    this.load()
   },
 
-  saveOnEnter(item,ev){
+  save() {
+    localStorage.setItem('flicks', JSON.stringify(this.flicks))
+  },
+
+  load() {
+    const flicksJSON = localStorage.getItem('flicks')
+    const flicksArray = JSON.parse(flicksJSON)
+
+    if (flicksArray) {
+      flicksArray
+        .reverse()
+        .map(this.addFlick.bind(this))
+    }
+  },
+
+  addFlick(flick) {
+    const listItem = this.renderListItem(flick)
+    this.list.insertBefore(listItem, this.list.firstElementChild)
+
+    this.flicks.unshift(flick)
+
+    this.fadeButtons()
+
+    if (flick.id > this.max) {
+      this.max = flick.id
+    }
+    this.save()
+  },
+
+  blurOnEnter(item,ev){
     if (ev.key === 'Enter') {
       item.querySelector('.flick-name').blur()
     }
@@ -25,7 +56,7 @@ const app = {
     ev.target
       .addEventListener(
         'keypress',
-        this.saveOnEnter.bind(this, item)
+        this.blurOnEnter.bind(this, item)
       )
 
     ev.target
@@ -36,11 +67,15 @@ const app = {
           flick.name = ev.target.textContent
         }
       )
+
+    this.save()
   },
 
   favFlick(flick, ev) {
     const listItem = ev.target.closest('.flick')
     flick.fav = listItem.classList.toggle('fav')
+
+    this.save()
   },
 
   removeFlick(flick, ev) {
@@ -50,7 +85,11 @@ const app = {
     const i = this.flicks.indexOf(flick)
     this.flicks.splice(i, 1)
 
-    this.fadeButtons()
+    if (this.flicks.length>0) {
+      this.fadeButtons()
+    }
+
+    this.save()
   },
 
   moveFlickUp(flick, ev) {
@@ -61,9 +100,13 @@ const app = {
       this.list.insertBefore(listItem, listItem.previousElementSibling)
 
       this.flicks[i] = [this.flicks[i-1], this.flicks[i-1] = this.flicks[i]][0]
+      
+      this.save()
     }
 
     this.fadeButtons()
+
+    
   },
 
   moveFlickDown(flick, ev) {
@@ -74,9 +117,13 @@ const app = {
       this.list.insertBefore(listItem.nextElementSibling, listItem)
 
       this.flicks[i] = [this.flicks[i+1], this.flicks[i+1] = this.flicks[i]][0]
+    
+      this.save()
     }
 
     this.fadeButtons()
+
+    this.save()
   },
 
   fadeButtons() {
@@ -101,6 +148,10 @@ const app = {
     const item = this.template.cloneNode(true)
     item.classList.remove('template')
     item.dataset.id = flick.id
+    if(flick.fav) {
+      item.classList.add('fav')
+    }
+
     item
       .querySelector('.flick-name')
       .textContent = flick.name
@@ -152,14 +203,8 @@ const app = {
       fav: false,
     }
 
-    const listItem = this.renderListItem(flick)
-    this.list.insertBefore(listItem, this.list.firstElementChild)
+    this.addFlick(flick)
 
-    this.flicks.unshift(flick)
-
-    this.fadeButtons()
-
-    this.max ++
     f.reset()
   },
 }
