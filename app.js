@@ -8,7 +8,11 @@ const app = {
     document
       .querySelector(selectors.formSelector)
       .addEventListener('submit', this.handleSubmit.bind(this))
-  
+    
+    document
+      .querySelector('#search-bar')
+      .addEventListener('keydown', this.searchFlick)
+
     this.load()
   },
 
@@ -41,6 +45,35 @@ const app = {
     this.save()
   },
 
+  searchFlick() {
+    var input, filter, ul, li, flickName, i, listItem
+    input = document.getElementById('search-field')
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("flick-list")
+    li = ul.getElementsByTagName('li')
+
+    for (i = 0; i < li.length; i++) {
+        flickName = li[i].getElementsByClassName("flick-name")[0]
+        if (flickName.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = ""
+        } else {
+            li[i].style.display = "none"
+        }
+    }
+
+    document
+      .querySelector('#clear-search')
+      .addEventListener(
+        'click',
+        function(){
+          input.value = ''
+          for (i = 0; i < li.length; i++) {
+            li[i].style.display = ""
+          }
+        }
+      )
+  },
+
   blurOnEnter(item,ev){
     if (ev.key === 'Enter') {
       item.querySelector('.flick-name').blur()
@@ -48,8 +81,6 @@ const app = {
   },
 
   editFlick(flick,item,ev) {
-    console.log(ev.target)
-    console.log(item.querySelector('.flick-name'))
     ev.target.contentEditable = true
     ev.target.focus()
 
